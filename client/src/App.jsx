@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <div className="app">
+      <ScrollToTop />
       <Navbar cartCount={cartCount} />
       <main className="main-content">
         <Routes>
