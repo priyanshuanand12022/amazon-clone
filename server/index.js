@@ -20,6 +20,16 @@ app.use('/api/categories', require('./routes/products').categoryRouter);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 
+// Root route for deployment checks
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Amazon Clone backend is running',
+    health: '/api/health',
+    products: '/api/products',
+    categories: '/api/categories',
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
