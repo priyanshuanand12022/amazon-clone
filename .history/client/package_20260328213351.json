@@ -1,7 +1,6 @@
 "engines": {
   "node": "18.x"
 }
-
 {
   "name": "amazon-clone-client",
   "private": true,
