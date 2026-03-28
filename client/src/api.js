@@ -7,6 +7,24 @@ const api = axios.create({
   timeout: 10000,
 });
 
+api.interceptors.response.use(
+  (response) => {
+    const contentType = response.headers?.['content-type'] || '';
+    const body = response.data;
+
+    if (
+      typeof body === 'string' &&
+      (body.includes('<!DOCTYPE html') || body.includes('<html')) &&
+      contentType.includes('text/html')
+    ) {
+      return Promise.reject(new Error('Invalid API response: received HTML instead of JSON.'));
+    }
+
+    return response;
+  },
+  (error) => Promise.reject(error)
+);
+
 // Products
 export const getProducts = (params = {}) => api.get('/products', { params });
 export const getProduct = (id) => api.get(`/products/${id}`);
