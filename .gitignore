@@ -1,5 +1,6 @@
 node_modules
 .env
+client/.env.example
 dist
 .history/
 client/node_modules/
