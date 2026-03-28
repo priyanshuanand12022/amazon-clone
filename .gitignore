@@ -4,4 +4,3 @@ dist
 .history/
 client/node_modules/
 server/node_modules/
-vercel.json
