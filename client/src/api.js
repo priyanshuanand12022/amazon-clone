@@ -1,10 +1,18 @@
 import axios from 'axios';
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+const apiTimeout = Number(import.meta.env.VITE_API_TIMEOUT || 70000);
+const warmupRetryDelay = 2500;
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 const api = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 10000,
+  timeout: apiTimeout,
 });
 
 api.interceptors.response.use(
@@ -22,7 +30,28 @@ api.interceptors.response.use(
 
     return response;
   },
-  (error) => Promise.reject(error)
+  async (error) => {
+    const requestConfig = error.config || {};
+    const method = (requestConfig.method || 'get').toLowerCase();
+    const status = error.response?.status;
+    const shouldRetryWarmup =
+      method === 'get' &&
+      !requestConfig.__warmupRetried &&
+      (
+        error.code === 'ECONNABORTED' ||
+        error.code === 'ERR_NETWORK' ||
+        !error.response ||
+        [502, 503, 504].includes(status)
+      );
+
+    if (shouldRetryWarmup) {
+      requestConfig.__warmupRetried = true;
+      await wait(warmupRetryDelay);
+      return api(requestConfig);
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 // Products
