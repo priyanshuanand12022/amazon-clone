@@ -17,15 +17,6 @@ router.post('/', async (req, res) => {
     }
 
     client = await db.getConnection();
-
-    const [orderCountRows] = await client.query(
-      'SELECT COUNT(*) AS order_count FROM orders'
-    );
-
-    if (orderCountRows[0].order_count === 0) {
-      await client.query('ALTER TABLE orders AUTO_INCREMENT = 1');
-    }
-
     await client.beginTransaction();
     transactionStarted = true;
 
