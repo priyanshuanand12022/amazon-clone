@@ -325,7 +325,15 @@ function Home({ onCartUpdate }) {
       )}
 
       {loading ? (
-        <div className="loading"><div className="spinner"></div></div>
+        <div className="loading home-loading-state">
+          <div className="home-loading-message">
+            <h2>Preparing the store for you...</h2>
+            <p>
+              The backend server may take up to 1 minute to start on the first
+              visit after inactivity. Products will appear automatically once it wakes up.
+            </p>
+          </div>
+        </div>
       ) : products.length === 0 ? (
         <div className="cart-empty">
           <h2>No products found</h2>

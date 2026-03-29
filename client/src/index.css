@@ -1667,6 +1667,35 @@ ul, ol {
   min-height: 300px;
 }
 
+.home-loading-state {
+  min-height: 220px;
+  padding: 24px 16px 40px;
+}
+
+.home-loading-message {
+  max-width: 500px;
+  padding: 18px 22px;
+  border: 1px solid #d5d9d9;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 24px rgba(15, 17, 17, 0.08);
+  text-align: center;
+}
+
+.home-loading-message h2 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f1111;
+}
+
+.home-loading-message p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #565959;
+}
+
 .spinner {
   width: 40px;
   height: 40px;
