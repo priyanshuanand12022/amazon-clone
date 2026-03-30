@@ -328,6 +328,7 @@ function Home({ onCartUpdate }) {
         !hasFilters ? (
           <div className="loading home-loading-state">
             <div className="home-loading-message">
+              <div className="home-loading-spinner" aria-hidden="true"></div>
               <h2>Preparing the store for you...</h2>
               <p>
                 The backend server may take up to 1 minute to start on the first
